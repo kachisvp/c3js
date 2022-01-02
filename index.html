@@ -12,24 +12,70 @@
     <script src="d3.min.js"></script>
     <script src="c3.min.js"></script>
 
+    <!-- Load Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
     <title>svp-web.com</title>
 </head>
 
-<body>
-    <!-- lineChart -->
-    <div id="lineChart"></div>
+<body onload="実行()">
+    <script>
+        function 実行() {
+            水平棒グラフ();
+        }
+    </script>
 
-    <div id="lineChartSource">
+    <!-- horizontalBar -->
+    <div style="float: right">
+        <canvas id="水平棒グラフ表示場所" width="400" height="300" style="display: block;"></canvas>
+    </div>
+
+    <div id="水平棒グラフソース">
         <script>
-            var chart = c3.generate({
-                bindto: '#lineChart',
-                data: {
-                    columns: [
-                        ['data1', 30, 200, 100, 400, 150, 250],
-                        ['data2', 50, 20, 10, 40, 15, 25]
-                    ]
-                }
-            });
+            function 水平棒グラフ() {
+                var ctx = document.getElementById("水平棒グラフ表示場所").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: "horizontalBar", // 水平棒グラフ
+                    data: {
+                        labels: ["00年", "05年", "10年", "15年", "20年"],
+                        datasets: [
+                            {
+                                label: "系列Ａ",
+                                data: [10, 20, 5, 15, 10],
+                                backgroundColor: ["red", "yellow", "green", "blue", "purple"]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: false,
+                        title: {
+                            display: true,
+                            fontSize: 20,
+                            text: "水平棒グラフ"
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        scales: {
+                            xAxes: [ // Ｘ軸のオプション
+                                {
+                                    ticks: {
+                                        min: 0
+                                    }
+                                }
+                            ],
+                            yAxes: [                   //
+                                {                      //
+                                    ticks: {           //
+                                        reverse: true  // 行の反転をさせたいのですが無視されています
+                                    }                  //
+                                }                      //
+                            ]                          //
+                        }
+
+                    }
+                });
+            }
         </script>
     </div>
 </body>
