@@ -21,37 +21,55 @@
 
     <div id="rotatedBarSource">
         <script>
-            var chart = c3.generate({
-                bindto: '#rotatedBarChart',
-                data: {
-                    columns: [
-                        ['data1', 20, 40, 60, 80, 100,],
-                    ],
-                    type: 'bar',
-                    color: function (color, d) {
-                        if (d.value < 30) {
-                            return '#FF0000'
-                        }
-                        else if (d.value < 60) {
-                            return '#FFFF00'
-                        }
-                        return '#008000'
-                    },
+            const chartData = {
+                color: function (color, d) {
+                    if (d.value < 30) {
+                        return '#FF0000'
+                    }
+                    else if (d.value < 60) {
+                        return '#FFA500'
+                    }
+                    return '#008000'
                 },
+                columns: [
+                    ['data1', Math.floor(Math.random() * 100),],
+                ],
+                type: 'bar',
+                labels: true,
+            }
+
+            const chart = c3.generate({
+                bindto: '#rotatedBarChart',
                 axis: {
                     x: {
                         show: false,
                     },
                     y: {
-                        padding: { top: 10, bottom: 0 },
-                        show: false,
+                        max: 100,
+                        min: 0,
+                        padding: { top: 10, bottom: 10 },
                     },
                     rotated: true,
+                },
+                data: chartData,
+                grid: {
+                    y: {
+                        lines: [{ value: 30 }, { value: 60 },],
+                    }
                 },
                 legend: {
                     hide: true,
                 },
             });
+
+            setInterval(() => {
+                chartData.columns = [
+                    ['data1', Math.floor(Math.random() * 100),],
+                ]
+                chart.load({
+                    columns: chartData.columns
+                });
+            }, 3000);
         </script>
     </div>
 </body>
