@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Load c3.css -->
-    <link href="c3.css" rel="stylesheet">
+    <link rel="stylesheet" href="c3.css" media="print" onload="this.media='all'">
 
     <!-- Load d3.js and c3.js -->
     <script src="d3.min.js"></script>
@@ -25,7 +25,7 @@
                 bindto: '#rotatedBarChart',
                 data: {
                     columns: [
-                        ['data1', 20, 40, 60, 80, 100],
+                        ['data1', 20, 40, 60, 80, 100,],
                     ],
                     type: 'bar',
                     color: function (color, d) {
